@@ -10,7 +10,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More'  => 0,
-        'Querylet::Query'  => 0.24,
+        'Querylet::Query'  => 0.28,
         'Querylet::Output' => 0.24,
         'Spreadsheet::WriteExcel' => 2.04,
     },

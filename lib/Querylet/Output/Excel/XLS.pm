@@ -12,11 +12,11 @@ Querylet::Output::Excel::XLS - output querylet results to an Excel file
 
 version 0.12
 
- $Id: XLS.pm,v 1.2 2004/09/21 22:07:00 rjbs Exp $
+ $Id: XLS.pm,v 1.3 2004/12/16 16:00:07 rjbs Exp $
 
 =cut
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use Spreadsheet::WriteExcel;
 
@@ -73,7 +73,7 @@ sub _as_xls {
 		or die "couldn't create spreadsheet object";
 
 	my $ws = $workbook->add_worksheet('querylet_results');
-	$ws->write('A1', $columns);
+	$ws->write('A1', [ map { $query->header($_) } @$columns ]);
 
 	my $range = [ map { [ @$_{@$columns} ] } @$results ]; 
 	$ws->write_col('A2', $range);
