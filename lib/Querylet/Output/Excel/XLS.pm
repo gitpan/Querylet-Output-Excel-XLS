@@ -10,13 +10,13 @@ Querylet::Output::Excel::XLS - output querylet results to an Excel file
 
 =head1 VERSION
 
-version 0.10
+version 0.12
 
- $Id: XLS.pm,v 1.1.1.1 2004/09/21 20:07:28 rjbs Exp $
+ $Id: XLS.pm,v 1.2 2004/09/21 22:07:00 rjbs Exp $
 
 =cut
 
-our $VERSION = '0.10';
+our $VERSION = '0.12';
 
 use Spreadsheet::WriteExcel;
 
@@ -55,7 +55,6 @@ sub default_type { 'xls' }
 =item C<< handler >>
 
 The output handler uses Spreadsheet::WriteExcel to produce an Excel "xls" file.
-You must use also set an output filename, or Spreadsheet::WriteExcel will die.
 
 =cut
 
@@ -65,20 +64,23 @@ sub _as_xls {
 	my $results = $query->results;
 	my $columns = $query->columns;
 
-	sub {
-		my $filename = shift;
+	my $xls;
+  open(my $fh, ">", \$xls)
+		or die "couldn't create temporary filehandle for XLS";
+  binmode($fh); 
 
-		my $xls  = Spreadsheet::WriteExcel->new($filename)
-			or die "couldn't create spreadsheet: $filename";
+  my $workbook = Spreadsheet::WriteExcel->new($fh)
+		or die "couldn't create spreadsheet object";
 
-		my $ws = $xls->add_worksheet('querylet_results');
-		$ws->write('A1', $columns);
+	my $ws = $workbook->add_worksheet('querylet_results');
+	$ws->write('A1', $columns);
 
-		my $range = [ map { [ @$_{@$columns} ] } @$results ]; 
-		$ws->write_col('A2', $range);
+	my $range = [ map { [ @$_{@$columns} ] } @$results ]; 
+	$ws->write_col('A2', $range);
 
-		$xls->close;
-	}
+	$workbook->close;
+
+	return $xls;
 }
 
 =back
