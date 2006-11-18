@@ -10,13 +10,13 @@ Querylet::Output::Excel::XLS - output querylet results to an Excel file
 
 =head1 VERSION
 
-version 0.131
+version 0.132
 
  $Id: /my/cs/projects/q/xls/trunk/lib/Querylet/Output/Excel/XLS.pm 28045 2006-11-14T23:37:20.361943Z rjbs  $
 
 =cut
 
-our $VERSION = '0.131';
+our $VERSION = '0.132';
 
 use Spreadsheet::WriteExcel;
 

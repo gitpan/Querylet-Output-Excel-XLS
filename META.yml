@@ -1,8 +1,8 @@
 --- #YAML:1.0
 name:                Querylet-Output-Excel-XLS
-version:             0.131
+version:             0.132
 abstract:            output querylet results to an Excel file
-license:             ~
+license:             perl
 generated_by:        ExtUtils::MakeMaker version 6.31
 distribution_type:   module
 requires:     
