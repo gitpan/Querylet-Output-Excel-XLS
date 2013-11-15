@@ -1,20 +1,61 @@
+
 use strict;
 use warnings;
-use ExtUtils::MakeMaker;
 
-WriteMakefile(
-    NAME                => 'Querylet::Output::Excel::XLS',
-    AUTHOR              => 'Ricardo SIGNES <rjbs@cpan.org>',
-    VERSION_FROM        => 'lib/Querylet/Output/Excel/XLS.pm',
-    ABSTRACT_FROM       => 'lib/Querylet/Output/Excel/XLS.pm',
-    LICENSE             => 'perl',
-    PL_FILES            => {},
-    PREREQ_PM => {
-        'Test::More'  => 0,
-        'Querylet::Query'  => 0.28,
-        'Querylet::Output' => 0.24,
-        'Spreadsheet::WriteExcel' => 2.04,
-    },
-    dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'Querylet-Output-Excel-XLS-*' },
+
+
+use ExtUtils::MakeMaker 6.30;
+
+
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "output querylet results to an Excel file",
+  "AUTHOR" => "Ricardo SIGNES <rjbs\@cpan.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Querylet-Output-Excel-XLS",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Querylet::Output::Excel::XLS",
+  "PREREQ_PM" => {
+    "Querylet::Output" => 0,
+    "Spreadsheet::WriteExcel" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "TEST_REQUIRES" => {
+    "Test::More" => "0.96"
+  },
+  "VERSION" => "0.133",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
 );
+
+
+my %FallbackPrereqs = (
+  "Querylet::Output" => 0,
+  "Spreadsheet::WriteExcel" => 0,
+  "Test::More" => "0.96",
+  "parent" => 0,
+  "strict" => 0,
+  "warnings" => 0
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

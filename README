@@ -1,4 +1,13 @@
-README for Querylet-Output-Excel-XLS
 
-This distribution provides a plugin to output Querylet results as an Excel file
-using Spreadsheet::WriteExcel
+
+This archive contains the distribution Querylet-Output-Excel-XLS,
+version 0.133:
+
+  output querylet results to an Excel file
+
+This software is copyright (c) 2004 by Ricardo SIGNES.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+
